@@ -1,0 +1,22 @@
+/server/node_modules
+*/.env.local
+/chat/node_modules
+/chat/.pnp
+/chat/.pnp.js
+
+# testing
+/chat/coverage
+
+# production
+/chat/build
+
+# misc
+/chat/.DS_Store
+/chat/.env.local
+/chat/.env.development.local
+/chat/.env.test.local
+/chat/.env.production.local
+
+/chat/npm-debug.log*
+/chat/yarn-debug.log*
+/chat/yarn-error.log*
