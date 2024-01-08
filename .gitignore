@@ -1,5 +1,5 @@
 /server/node_modules
-*/.env.local
+*/.env
 /chat/node_modules
 /chat/.pnp
 /chat/.pnp.js
