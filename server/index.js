@@ -1,17 +1,32 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const userRoutes = require('./routes/userRoutes');
-const messageRoute = require('./routes/messagesRoute');
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import userRoutes from './routes/userRoutes.js';
+import messageRoute from './routes/messagesRoute.js';
 const app = express();
-const socket = require('socket.io');
-require('dotenv').config();
+import { Server } from 'socket.io';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors());
 app.use(express.json());
-
 app.use('/api/auth', userRoutes);
 app.use('/api/messages', messageRoute);
+
+ app.use('/', express.static(path.join(__dirname, '.', 'chat')));
+ const indexPath = path.join(__dirname, '.', 'chat', 'index.html');
+ app.get('*', (_, res) => {
+		res.sendFile(indexPath);
+ });
+
+const server = app.listen(8080, () => {
+	console.log(`Server Started on Port ${8080}`);
+});
 
 mongoose
 	.connect(process.env.MONGO_URL)
@@ -22,13 +37,10 @@ mongoose
 		console.log(err.message);
 	});
 
-const server = app.listen(process.env.PORT, () => {
-	console.log(`Server Started on Port ${process.env.PORT}`);
-});
 
-const io = socket(server, {
+const io = new Server(server, {
 	cors: {
-		origin: 'http://localhost:3000',
+		origin: '*',
 		credentials: true,
 	},
 });

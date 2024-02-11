@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Chat } from './pages/Chat';
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
-import { AddAvatar } from './pages/AddAvatar';
+import { Chat } from '../pages/Chat';
+import { Login } from '../pages/Login';
+import { Register } from '../pages/Register';
+import { AddAvatar } from '../pages/AddAvatar';
 
 export const App = () => {
 	return (

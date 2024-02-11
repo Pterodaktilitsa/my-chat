@@ -1,6 +1,6 @@
-const messageModel = require('../model/messageModel');
+import messageModel from '../model/messageModel.js';
 
-module.exports.getAllMessages = async (req, res, next) => {
+export const getAllMessages = async (req, res, next) => {
 	try {
 		const { from, to } = req.body;
 
@@ -24,7 +24,7 @@ module.exports.getAllMessages = async (req, res, next) => {
 	}
 };
 
-module.exports.addMessage = async (req, res, next) => {
+export const addMessage = async (req, res, next) => {
 	try {
 		const { from, to, message } = req.body;
 		const data = await messageModel.create({
