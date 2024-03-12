@@ -1,7 +1,7 @@
-const User = require('../model/userModel');
-const bcrypt = require('bcrypt');
+import User from '../model/userModel.js';
+import bcrypt from 'bcrypt';
 
-module.exports.register = async (req, res, next) => {
+export const register = async (req, res, next) => {
 	try {
 		const { username, email, password } = req.body;
 		const usernameCheck = await User.findOne({ username });
@@ -23,7 +23,7 @@ module.exports.register = async (req, res, next) => {
 	}
 };
 
-module.exports.login = async (req, res, next) => {
+export const login = async (req, res, next) => {
 	try {
 		const { username, password } = req.body;
 		const user = await User.findOne({ username });
@@ -40,7 +40,7 @@ module.exports.login = async (req, res, next) => {
 	}
 };
 
-module.exports.addAvatar = async (req, res, next) => {
+export const addAvatar = async (req, res, next) => {
 	try {
 		const userId = req.params.id;
 		const avatarImage = req.body.image;
@@ -57,7 +57,7 @@ module.exports.addAvatar = async (req, res, next) => {
 	}
 };
 
-module.exports.getAllUsers = async (req, res, next) => {
+export const getAllUsers = async (req, res, next) => {
 	try {
 		const users = await User.find({ _id: { $ne: req.params.id } }).select([
 			'email',

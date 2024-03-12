@@ -1,16 +1,27 @@
-FROM node:18
+FROM node:16-alpine as chat
 
-WORKDIR /src/app
+WORKDIR /app/chat
 
-COPY . .
+COPY chat/package.json /app/chat/
 
-WORKDIR /src/app/chat
-RUN npm install
+RUN npm install 
+
+COPY chat /app/chat/
+
 RUN npm run build
 
-WORKDIR /src/app/server
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY server/package.json /app/
+
 RUN npm install
 
-EXPOSE 5000
+COPY server /app/
 
-CMD [ "npm","start" ]
+COPY --from=chat /app/chat/build /app/chat
+
+EXPOSE 8080
+
+CMD [ "npm", "start" ]

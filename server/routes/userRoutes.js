@@ -1,15 +1,10 @@
-const {
-	register,
-	login,
-	addAvatar,
-	getAllUsers,
-} = require('../controllers/usersController');
-
-const router = require('express').Router();
+import { register, login, addAvatar, getAllUsers } from '../controllers/usersController.js';
+import express from 'express';
+const router = express.Router();
 
 router.post('/register', register);
 router.post('/login', login);
 router.post('/addAvatar/:id', addAvatar);
 router.get('/allUsers/:id', getAllUsers);
 
-module.exports = router;
+export default router;
